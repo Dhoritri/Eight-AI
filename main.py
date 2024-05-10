@@ -67,68 +67,78 @@ def greet():
     
     
 if __name__ == "__main__":
-    greet()
+    
     while True:
-        try:                   
-            query = takecommand().lower()
-            if "exit" == query:
-                speak("Thank you for using me. Have a nice day")
-                break
-            elif  "open notepad" in query:
-                speak("Opening notepad")
-                os.startfile("C:\\Windows\\System32\\notepad.exe")
-            elif "open cmd" in query:
-                speak("Opening Command Prompt")
-                os.system("start cmd")
-            elif "turn on camera" in query:
-                cap = cv2.VideoCapture(1)
+        query = takecommand().lower()
+        try:   
+            if "Hey Eight Wake up" in query:
+                greet()                                
                 while True:
-                    ret, img = cap.read()
-                    cv2.imshow('webcam', img)
-                    k = cv2.waitKey(50)
-                    if k==27:
-                        break;
-                cap.release()
-                cv2.destroyAllWindows()
-            elif "open spotify" in query:
-                speak("Opening Spotify")
-                try:
-                    subprocess.Popen("spotify")
-                except FileNotFoundError:
-                    speak("Spotify app not found. Opening Spotify web player instead.")
-                    webbrowser.open("https://open.spotify.com/")
-            elif "play" in query:
-                song_name = query.replace("play", "").strip()
-                speak(f"Playing {song_name}")
-                try:
-                    results = sp_client.search(q=song_name, type="track", limit=1)
-                    track_id = results["tracks"]["items"][0]["id"]
-                    sp_client.start_playback(uris=[f"spotify:track:{track_id}"])
-                except Exception as e:
-                    speak("Sorry, could not play the song.")
-            elif "what is my ip" in query:
-                ip = get('https://api.ipify.org').text
-                speak(f"Your IP address is {ip}")
-            elif "wikipedia" in query:
-                speak("Searching the internet...")
-                query =query.replace("wikipedia","")
-                results = wikipedia.summary(query,sentences=2)
-                speak(results)
-            elif "open youtube" in query:
-                webbrowser.open("youtube.com")
-            elif "open facebook" in query:
-                webbrowser.open("facebook.com")
-            elif "open stackoverflow" in query:
-                webbrowser.open("stackoverflow.com")
-            elif "open google" in query:
-                speak("Sir what should i find out:")
-                cm= takecommand().lower()                
-                webbrowser.open(f"{cm}")
-            elif "send message" in query:   
-                kit.sendwhatmsg("+8801518617628", "this is testing protocol ",0,1) 
+                    if "exit" == query:
+                        speak("Thank you for using me. Have a nice day")
+                        break
+                    elif  "open notepad" in query:
+                        speak("Opening notepad")
+                        os.startfile("C:\\Windows\\System32\\notepad.exe")
+                    elif "open cmd" in query:
+                        speak("Opening Command Prompt")
+                        os.system("start cmd")
+                    elif "turn on camera" in query:
+                        cap = cv2.VideoCapture(1)
+                        while True:
+                            ret, img = cap.read()
+                            cv2.imshow('webcam', img)
+                            k = cv2.waitKey(50)
+                            if k==27:
+                                break;
+                        cap.release()
+                        cv2.destroyAllWindows()
+                    elif "open spotify" in query:
+                        speak("Opening Spotify")
+                        try:
+                            subprocess.Popen("spotify")
+                        except FileNotFoundError:
+                            speak("Spotify app not found. Opening Spotify web player instead.")
+                            webbrowser.open("https://open.spotify.com/")
+                    elif "play" in query:
+                        song_name = query.replace("play", "").strip()
+                        speak(f"Playing {song_name}")
+                        try:
+                            results = sp_client.search(q=song_name, type="track", limit=1)
+                            track_id = results["tracks"]["items"][0]["id"]
+                            sp_client.start_playback(uris=[f"spotify:track:{track_id}"])
+                        except Exception as e:
+                            speak("Sorry, could not play the song.")
+                    elif "what is my ip" in query:
+                        ip = get('https://api.ipify.org').text
+                        speak(f"Your IP address is {ip}")
+                    elif "wikipedia" in query:
+                        speak("Searching the internet...")
+                        query =query.replace("wikipedia","")
+                        results = wikipedia.summary(query,sentences=2)
+                        speak(results)
+                    elif "open youtube" in query:
+                        speak("This is what i found for your search!")
+                        query= query.replace("youtube search","")
+                        query.replace("open youtube","")
+                        web ="https://www.youtube.com/results?search_query="+query
+                        webbrowser.open("web")
+                        pywhatkit.playonyt(query)
+                        speak("Done,Sir")
+                    elif "open facebook" in query:
+                        webbrowser.open("facebook.com")
+                    elif "open stackoverflow" in query:
+                        webbrowser.open("stackoverflow.com")
+                    elif "open google" in query:
+                        speak("Sir what should i find out:")
+                        cm= takecommand().lower()                
+                        webbrowser.open(f"{cm}")
+                    elif "send message" in query:   
+                        kit.sendwhatmsg("+8801518617628", "this is testing protocol ",0,1) 
+                        
 
-            
-            
-        # speak("This is Eight")
+                
+                
+            # speak("This is Eight")
         except Exception as e:
             speak("Sorry I didn't understand that, Could you repeat?")
