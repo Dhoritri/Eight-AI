@@ -11,6 +11,7 @@ from requests import get
 import wikipedia
 import pywhatkit as kit
 import smtplib
+import time
 
 # Spotify API credentials
 SPOTIPY_CLIENT_ID = '17c2e13e61884eb3a67f05504dff8673'
@@ -152,6 +153,8 @@ if __name__ == "__main__":
                     # speak(f"email has been sent to {to}")
                 except Exception as e:
                     print(e)
+                
+                
                     
             
             
