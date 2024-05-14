@@ -12,6 +12,8 @@ import wikipedia
 import pywhatkit as kit
 import smtplib
 import time
+import sys
+import pyjokes
 
 # Spotify API credentials
 SPOTIPY_CLIENT_ID = '17c2e13e61884eb3a67f05504dff8673'
@@ -59,7 +61,7 @@ def sendEmail(to,content):
     server = smtplib.SMTP('smtp.gmail.com',587)
     server.ehlo()
     server.starttls()
-    server.login('ishrak.alam32@gmail.com','4736621')
+    server.login('ishrak.alam32@gmail.com','Lagkeneto1.')
     server.sendmail('ishrak.alam32@gmail.com',to,content)
     server.close()
 
@@ -87,6 +89,9 @@ if __name__ == "__main__":
             elif  "open notepad" in query:
                 speak("Opening notepad")
                 os.startfile("C:\\Windows\\System32\\notepad.exe")
+            elif "close notepad" in query:
+                speak("Closing notepad")
+                os.system("taskkill /f /im notepad.exe")
             elif "open cmd" in query:
                 speak("Opening Command Prompt")
                 os.system("start cmd")
@@ -153,6 +158,36 @@ if __name__ == "__main__":
                     # speak(f"email has been sent to {to}")
                 except Exception as e:
                     print(e)
+                    
+                    
+            # elif "set alarm" in query:
+            #     speak("Sir, please tell me the time to set alarm")
+            #     nn = int(datetime.datetime.now().hour)
+            #     mm = int(datetime.datetime.now().minute)
+            #     al = takecommand().lower()
+            #     if "set alarm for" in al:
+            #         rep = al.replace("set alarm for","")
+            #         hh = int(rep.split(" ")[0])
+            #         mm = int(rep.split(" ")[1])
+            #         while True:
+            #             if nn == hh and mm == mm:
+            #                 speak("Time to wake up sir")
+            #                 playsound('alarm.mp3')
+            #             elif nn != hh and mm != mm:
+            #                 break
+            elif "8 tell me a joke" in query:
+                joke = pyjokes.get_joke()
+                speak(joke)
+            elif "shutdown the computer" in query:
+                speak("Your system is on its way to shut down")
+                os.system("shutdown /s /t 5")
+            elif "restart the computer" in query:
+                speak("Your system is on its way to restart")
+                os.system("shutdown /r /t 5")
+                
+            elif "close" in query:
+                speak("Have a good day sir!")
+                sys.exit()
                 
                 
                     
